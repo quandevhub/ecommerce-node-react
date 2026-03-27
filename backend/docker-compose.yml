@@ -1,0 +1,38 @@
+services:
+  backend:
+    build: .
+    container_name: backend
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      CHOKIDAR_INTERVAL: "1000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      mysql-db:
+          condition: service_healthy
+    restart: unless-stopped
+
+  mysql-db:
+    image: mysql:8
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ecommerce_node_react
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: quandv
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  mysql_data:
