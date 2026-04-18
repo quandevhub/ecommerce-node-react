@@ -1,10 +1,13 @@
 import type { Product } from "../../entities/types"
+import { addToCart } from "../../features/cart/cartSlice";
+import { useAppDispatch } from "../../hooks/useAppDispatch"
 
 interface ProductItemProps {
     products: Product[]
 }
 
 export default function ProductItem({ products }: ProductItemProps) {
+    const dispatch = useAppDispatch();
     return (
         <>
             {products.map((product) => (
@@ -30,6 +33,7 @@ export default function ProductItem({ products }: ProductItemProps) {
                             Xem chi tiet
                         </a>
                         <button
+                        onClick={() => dispatch(addToCart(product))}
                             type="button"
                             className="rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white hover:bg-gray-700"
                         >
