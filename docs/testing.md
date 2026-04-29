@@ -145,7 +145,7 @@ cd frontend
 npm run test           # Chạy toàn bộ tests
 npm run test:auth      # Chỉ chạy tests/auth/
 npm run test:ui        # Playwright UI mode (interactive)
-npm run test:cart      # Chỉ chạy cart tests
+npm run test:cart      # Chỉ chạy cart testss
 npm run test:ui -- tests/cart/
 ```
 
