@@ -21,7 +21,7 @@ Full-stack e-commerce application — Express.js REST API backend, React + TypeS
 ```bash
 # 1. Start backend + MySQL
 cd backend
-cp .env.example .env        # fill in JWT_SECRET, DB credentials
+cp .env.example .env        # fill in JWT_SECRET, DB credentials.
 docker-compose up -d
 
 # 2. Start frontend

@@ -6,7 +6,7 @@ description: Create comprehensive API documentation from source code
 
 Generate API documentation by:
 
-1. Scanning all files in `/src/api/`
+1. Scanning all files in `/backend/src/controller/`
 2. Extracting function signatures and JSDoc comments
 3. Organizing by endpoint/module
 4. Creating markdown with examples
