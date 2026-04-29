@@ -1,73 +1,71 @@
-# React + TypeScript + Vite
+# Frontend — React + TypeScript
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 SPA for the ecommerce application. Built with Vite, Redux Toolkit, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
 
-## React Compiler
+# Create .env
+echo "VITE_API_BASE=http://localhost:3000/api" > .env
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+npm run dev     # http://localhost:5173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Scripts
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+| Command | Description |
+|---|---|
+| `npm run dev` | Start Vite dev server |
+| `npm run build` | TypeScript check + production build |
+| `npm run lint` | ESLint |
+| `npm run test` | Playwright E2E tests |
+| `npm run test:auth` | Auth tests only |
+| `npm run test:cart` | Cart tests only |
+| `npm run test:ui` | Playwright interactive UI |
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+## Structure
+
 ```
+src/
+├── app/
+│   ├── router.tsx          # Route definitions
+│   ├── store.ts            # Redux store
+│   └── layout/
+│       ├── LayoutMain.tsx  # Shell with header + outlet
+│       └── HeaderMenu.tsx  # Nav: store, cart badge, auth state
+├── pages/
+│   ├── store/
+│   │   ├── ProductList.tsx
+│   │   └── ProductItem.tsx
+│   └── auth/
+│       ├── LoginPage.tsx
+│       └── RegisterPage.tsx
+├── features/
+│   ├── cart/
+│   │   ├── cartSlice.ts    # add / decrease / remove / clear
+│   │   └── cartItems.tsx   # Cart page + checkout
+│   └── auth/
+│       └── authSlice.ts    # login / logout, token in localStorage
+├── entities/
+│   └── types.ts            # Shared TypeScript interfaces
+├── services/
+│   └── api.ts              # Axios instance + auth interceptor
+├── hooks/
+│   ├── useAppDispatch.ts
+│   └── useAppSelectot.ts
+└── utils/
+    └── parseApiError.ts
+```
+
+## Routes
+
+| Path | Component |
+|---|---|
+| `/` | ProductList |
+| `/cart` | CartItems |
+| `/login` | LoginPage |
+| `/register` | RegisterPage |
+
+For full documentation see [docs/](../docs/).
