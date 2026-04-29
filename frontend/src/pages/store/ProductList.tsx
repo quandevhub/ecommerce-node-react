@@ -12,7 +12,6 @@ export default function ProductList() {
     const fectProducts = useCallback(async () => {
         try {
             const response = await api.get('/products')
-            console.log(response.data);
             
             setProducts(response.data)
         } catch (error) {

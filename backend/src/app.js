@@ -11,9 +11,11 @@ app.use(express.json());
 // Import routes
 const productRoutes = require('./routers/productRoutes');
 const authRoutes = require('./routers/authRoutes');
+const orderRoutes = require('./routers/orderRoutes');
 
 // Use routes
 app.use('/api', productRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/orders', orderRoutes);
 
 module.exports = app;
